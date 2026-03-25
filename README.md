@@ -1,9 +1,9 @@
 # Claude.ai CSS Fixes
 
 A pure-CSS [Tampermonkey](https://www.tampermonkey.net/) userscript that improves the Claude.ai interface.  
-No DOM manipulation — just an injected `<style>` tag.
+No DOM manipulation - just an injected `<style>` tag.
 
-> Inspired by [alexchexes/chatgpt_ui_fix](https://github.com/alexchexes/chatgpt_ui_fix)](https://gist.github.com/alexchexes/d2ff0b9137aa3ac9de8b0448138125ce) for ChatGPT.
+> Inspired by [alexchexes/chatgpt_ui_fix](https://gist.github.com/alexchexes/d2ff0b9137aa3ac9de8b0448138125ce) for ChatGPT.
 
 ---
 
@@ -12,7 +12,7 @@ No DOM manipulation — just an injected `<style>` tag.
 1. Install the [Tampermonkey](https://www.tampermonkey.net/) browser extension
 2. Click the link below to install the script directly:
 
-**[⬇️ Install claude-ai-css-fixes.user.js](https://raw.githubusercontent.com/danslabs/claude-ai-css-fixes/main/claude-ai-css-fixes.user.js)**
+**[⬇️ Install claude-ai-css-fixes.user.js](https://github.com/danslabs/Claude.ai-CSS-fixes/raw/refs/heads/main/claude-ai-css-fixes.user.js)**
 
 Tampermonkey will detect the `@downloadURL` header and prompt you to install it automatically.
 
@@ -66,7 +66,7 @@ Tampermonkey will check for updates automatically based on your update settings.
 
 ## Notes
 
-- CSS selectors are verified against the live Claude.ai DOM — if Anthropic update their frontend, some selectors may need refreshing
+- CSS selectors are verified against the live Claude.ai DOM - if Anthropic update their frontend, some selectors may need refreshing
 - Tested on Chrome + Tampermonkey
 - No data is collected or sent anywhere
 
@@ -74,4 +74,4 @@ Tampermonkey will check for updates automatically based on your update settings.
 
 ## Licence
 
-MIT — do whatever you like with it.
+MIT - do whatever you like with it.
