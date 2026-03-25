@@ -3,7 +3,7 @@
 A pure-CSS [Tampermonkey](https://www.tampermonkey.net/) userscript that improves the Claude.ai interface.  
 No DOM manipulation — just an injected `<style>` tag.
 
-> Inspired by [alexchexes/chatgpt_ui_fix](https://github.com/alexchexes/chatgpt_ui_fix) for ChatGPT.
+> Inspired by [alexchexes/chatgpt_ui_fix](https://github.com/alexchexes/chatgpt_ui_fix)](https://gist.github.com/alexchexes/d2ff0b9137aa3ac9de8b0448138125ce) for ChatGPT.
 
 ---
 
