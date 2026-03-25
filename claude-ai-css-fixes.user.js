@@ -6,8 +6,8 @@
 // @author       Vibe coded by Dan - inspired by alexchexes/chatgpt_ui_fix for ChatGPT
 // @match        https://claude.ai/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=claude.ai
-// @updateURL    https://raw.githubusercontent.com/danslabs/claude-ai-css-fixes/main/claude-ai-css-fixes.user.js
-// @downloadURL  https://raw.githubusercontent.com/danslabs/claude-ai-css-fixes/main/claude-ai-css-fixes.user.js
+// @updateURL    https://github.com/danslabs/Claude.ai-CSS-fixes/raw/refs/heads/main/claude-ai-css-fixes.user.js
+// @downloadURL  https://github.com/danslabs/Claude.ai-CSS-fixes/raw/refs/heads/main/claude-ai-css-fixes.user.js
 // @grant        GM_addStyle
 // ==/UserScript==
 
