@@ -1,6 +1,6 @@
 # Claude.ai CSS Fixes
 
-A pure-CSS [Tampermonkey](https://www.tampermonkey.net/) userscript that improves the Claude.ai interface.  
+A pure-CSS [Tampermonkey](https://www.tampermonkey.net/) userscript that improves the Claude.ai interface.
 No DOM manipulation - just an injected `<style>` tag.
 
 > Inspired by [alexchexes/chatgpt_ui_fix](https://gist.github.com/alexchexes/d2ff0b9137aa3ac9de8b0448138125ce) for ChatGPT.
@@ -22,22 +22,22 @@ Tampermonkey will detect the `@downloadURL` header and prompt you to install it 
 
 All features can be toggled on/off via the `settings` object at the top of the script.
 
-| Feature | Default | What it does |
-|---|---|---|
-| `chatWidth` | ✅ On | Widens the chat column to 90% of the screen |
-| `textAreaHeight` | ✅ On | Lets the input box grow taller before scrolling |
-| `codeBlockFont` | ✅ On | Uses Consolas font in code blocks |
-| `codeBlockBackground` | ✅ On | Darker background on code blocks for contrast |
-| `codeBlockLineBreaks` | ✅ On | Wraps long code lines instead of horizontal scroll |
-| `inlineCodeColor` | ✅ On | Warmer colour on inline `code` so it stands out |
-| `userMessageVisibility` | ✅ On | Blue/purple gradient on your message bubbles |
-| `topBarTransparency` | ✅ On | Makes the chat page top bar transparent |
-| `sidebarWidth` | ❌ Off | Widens the sidebar (enable if titles get cut off) |
-| `sidebarHeadingsVisibility` | ✅ On | Colours the "Recents" date headings in the sidebar |
-| `multilineHistoryTitles` | ✅ On | Lets sidebar chat titles wrap instead of truncating |
-| `alwaysVisibleActions` | ✅ On | Always shows copy/retry/thumbs buttons under messages |
-| `subtleInviteButton` | ✅ On | Fades the "Invite team members" sidebar button |
-| `homePageTopBar` | ✅ On | Fades the top-right buttons on the home page |
+| Feature                     | Default | What it does                                          |
+| --------------------------- | ------- | ----------------------------------------------------- |
+| `chatWidth`                 | ✅ On   | Widens the chat column to 90% of the screen           |
+| `textAreaHeight`            | ✅ On   | Lets the input box grow taller before scrolling       |
+| `codeBlockFont`             | ✅ On   | Uses Consolas font in code blocks                     |
+| `codeBlockBackground`       | ✅ On   | Darker background on code blocks for contrast         |
+| `codeBlockLineBreaks`       | ✅ On   | Wraps long code lines instead of horizontal scroll    |
+| `inlineCodeColor`           | ✅ On   | Warmer colour on inline `code` so it stands out       |
+| `userMessageVisibility`     | ✅ On   | Blue/purple gradient on your message bubbles          |
+| `topBarTransparency`        | ✅ On   | Makes the chat page top bar transparent               |
+| `sidebarWidth`              | ❌ Off  | Widens the sidebar (enable if titles get cut off)     |
+| `sidebarHeadingsVisibility` | ✅ On   | Colours the "Recents" date headings in the sidebar    |
+| `multilineHistoryTitles`    | ✅ On   | Lets sidebar chat titles wrap instead of truncating   |
+| `alwaysVisibleActions`      | ✅ On   | Always shows copy/retry/thumbs buttons under messages |
+| `subtleInviteButton`        | ✅ On   | Fades the "Invite team members" sidebar button        |
+| `homePageTopBar`            | ✅ On   | Fades the top-right buttons on the home page          |
 
 ---
 
@@ -59,7 +59,7 @@ chatWidth: {
 
 ## Auto-updates
 
-The script includes `@updateURL` and `@downloadURL` headers pointing to this repo.  
+The script includes `@updateURL` and `@downloadURL` headers pointing to this repo.
 Tampermonkey will check for updates automatically based on your update settings.
 
 ---
