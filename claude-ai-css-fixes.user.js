@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude.ai CSS Fixes
 // @namespace    http://tampermonkey.net/
-// @version      2026-03-25.5
+// @version      2026-03-31.2
 // @description  Pure CSS tweaks for Claude.ai: wider chat, better code blocks, improved sidebar, and other quality-of-life improvements. No DOM manipulation - just a injected <style> tag.
 // @author       Vibe coded by Dan - inspired by alexchexes/chatgpt_ui_fix for ChatGPT
 // @match        https://claude.ai/*
@@ -42,10 +42,44 @@
  *    background  - gradient or colour for user message bubbles
  *    color       - colour for sidebar headings
  *    width       - fixed width for the sidebar
+ *
+ *  DEBUG MODE
+ *  -----------
+ *  Set  debug: { enabled: true }  to log which features are
+ *  active and how many CSS characters were injected.
+ *  Set  debug: { enabled: false }  to silence all console output.
+ *
+ * ============================================================
+ *
+ *  SELECTOR HEALTH CHECK
+ *  ----------------------
+ *  Claude.ai uses Tailwind utility classes that can change
+ *  without notice. If a feature silently stops working:
+ *
+ *  1. Open Chrome DevTools → Elements tab
+ *  2. Find the element the feature should affect
+ *  3. Compare its current classes to the selector in the css{}
+ *     block below - look for any class that has changed
+ *  4. Update the selector to match, or open an issue at:
+ *     https://github.com/danslabs/Claude.ai-CSS-fixes/issues
+ *
+ *  ARIA-based selectors (e.g. nav[aria-label="Sidebar"]) and
+ *  data-* attribute selectors are more stable than Tailwind
+ *  class combos and should be preferred where possible.
+ *
+ * ============================================================
+ *
+ *  CHANGELOG
+ *  ----------
+ *  2026-03-31.2 - Added overflow-x: hidden to textAreaHeight;
+ *                 added !important to sidebarHeadingsVisibility
+ *                 font-weight so Tailwind can't override it
+ *  2026-03-31.1 - Added debug mode, changelog, selector health
+ *                 note; moved console.info inside IIFE
+ *  2026-03-25.5 - Added homePageTopBar, subtleInviteButton
+ *
  * ============================================================
  */
-
-console.info("%c Claude.ai CSS Fixes - vibe coded by Dan ", 'color: #8ff; background: #111; font-weight: bold');
 
 (function () {
 
@@ -53,6 +87,12 @@ console.info("%c Claude.ai CSS Fixes - vibe coded by Dan ", 'color: #8ff; backgr
    *   SETTINGS - tweak these to your preference  *
    *===============================================*/
   const settings = {
+
+    // Set enabled: true to log active features and injected CSS size to the console.
+    // Set enabled: false to silence all console output.
+    debug: {
+      enabled: false,
+    },
 
     // Widens the main chat column and the home page input box.
     // Default Claude width is quite narrow - 90% uses most of the screen.
@@ -156,6 +196,7 @@ console.info("%c Claude.ai CSS Fixes - vibe coded by Dan ", 'color: #8ff; backgr
       .tiptap.ProseMirror {
         max-height: ${settings.textAreaHeight.maxHeight} !important;
         overflow-y: auto;
+        overflow-x: hidden;
       }
     `,
 
@@ -222,7 +263,7 @@ console.info("%c Claude.ai CSS Fixes - vibe coded by Dan ", 'color: #8ff; backgr
     sidebarHeadingsVisibility: `
       nav[aria-label="Sidebar"] h2 {
         color: ${settings.sidebarHeadingsVisibility.color} !important;
-        font-weight: 600;
+        font-weight: 600 !important;
         opacity: 1 !important;
       }
     `,
@@ -292,11 +333,24 @@ console.info("%c Claude.ai CSS Fixes - vibe coded by Dan ", 'color: #8ff; backgr
    *   Inject only enabled feature blocks        *
    *==============================================*/
   let combined = '/* CLAUDE_CSS_FIXES */\n';
+  const active = [];
+
   for (const [key, block] of Object.entries(css)) {
     if (settings[key]?.enabled) {
       combined += block + '\n';
+      active.push(key);
     }
   }
+
   GM_addStyle(combined);
+
+  if (settings.debug?.enabled) {
+    console.info(
+      "%c Claude.ai CSS Fixes - vibe coded by Dan ",
+      'color: #8ff; background: #111; font-weight: bold'
+    );
+    console.info('[CSS Fixes] Active features:', active);
+    console.info(`[CSS Fixes] Injected ${combined.length} characters of CSS`);
+  }
 
 })();
