@@ -75,6 +75,7 @@ ARIA-based selectors (e.g. `nav[aria-label="Sidebar"]`) and `data-*` attribute s
 ## Changelog
 | Version      | Changes                                                                                                                                                   |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-04-03.1 | Fixed `chatWidth` outer container selector for existing chat pages: `size-full` → `w-full flex-1` to match current live DOM                               |
 | 2026-03-31.3 | README - added Known Issues section covering fragile selectors and other known issues; added Debug Mode section; added Selector Health Check section       |
 | 2026-03-31.2 | Fixed `textAreaHeight` to suppress horizontal scrollbars; fixed `sidebarHeadingsVisibility` font-weight to use `!important` so Tailwind can't override it |
 | 2026-03-31.1 | Added debug mode, changelog, and selector health-check notes; moved `console.info` inside IIFE                                                            |
