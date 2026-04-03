@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Claude.ai CSS Fixes
 // @namespace    http://tampermonkey.net/
-// @version      2026-03-31.2
+// @version      2026-04-03.1
 // @description  Pure CSS tweaks for Claude.ai: wider chat, better code blocks, improved sidebar, and other quality-of-life improvements. No DOM manipulation - just a injected <style> tag.
 // @author       Vibe coded by Dan - inspired by alexchexes/chatgpt_ui_fix for ChatGPT
 // @match        https://claude.ai/*
@@ -71,7 +71,9 @@
  *
  *  CHANGELOG
  *  ----------
- *  2026-03-31.2 - Added overflow-x: hidden to textAreaHeight;
+ *  2026-04-03.1 - Fixed chatWidth outer container selector for existing chat
+                 pages: size-full → w-full flex-1 to match live DOM
+  2026-03-31.2 - Added overflow-x: hidden to textAreaHeight;
  *                 added !important to sidebarHeadingsVisibility
  *                 font-weight so Tailwind can't override it
  *  2026-03-31.1 - Added debug mode, changelog, selector health
@@ -177,7 +179,7 @@
     /* Two wrappers both carry max-w-3xl - override both */
     chatWidth: `
       /* Outer scroll container (chat page) */
-      .mx-auto.flex.size-full.flex-col.max-w-3xl {
+      .mx-auto.flex.w-full.flex-1.flex-col.max-w-3xl {
         max-width: ${settings.chatWidth.maxWidth} !important;
       }
       /* Inner message column (chat page) */
