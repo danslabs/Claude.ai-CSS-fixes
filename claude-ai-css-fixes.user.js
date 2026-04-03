@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Claude.ai CSS Fixes
 // @namespace    http://tampermonkey.net/
-// @version      2026-04-03.1
-// @description  Pure CSS tweaks for Claude.ai: wider chat, better code blocks, improved sidebar, and other quality-of-life improvements. No DOM manipulation - just a injected <style> tag.
+// @version      2026-04-03.4
+// @description  Pure CSS tweaks for Claude.ai: wider chat, better code blocks, improved sidebar, and other quality-of-life improvements. No DOM manipulation by default - just a injected <style> tag.
 // @author       Vibe coded by Dan - inspired by alexchexes/chatgpt_ui_fix for ChatGPT
 // @match        https://claude.ai/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=claude.ai
@@ -28,7 +28,7 @@
  *
  *  Example - to disable the wider chat column:
  *    chatWidth: {
- *      enabled: false,   // ← change true to false
+ *      enabled: false,   // <- change true to false
  *      maxWidth: '90%',
  *    },
  *
@@ -56,7 +56,7 @@
  *  Claude.ai uses Tailwind utility classes that can change
  *  without notice. If a feature silently stops working:
  *
- *  1. Open Chrome DevTools → Elements tab
+ *  1. Open Chrome DevTools - Elements tab
  *  2. Find the element the feature should affect
  *  3. Compare its current classes to the selector in the css{}
  *     block below - look for any class that has changed
@@ -71,9 +71,22 @@
  *
  *  CHANGELOG
  *  ----------
- *  2026-04-03.1 - Fixed chatWidth outer container selector for existing chat
-                 pages: size-full → w-full flex-1 to match live DOM
-  2026-03-31.2 - Added overflow-x: hidden to textAreaHeight;
+ *  2026-04-03.4 - Fixed interfont CSS selector: switched from
+ *                 targeting specific elements to body * so
+ *                 Tailwind per-element font overrides are
+ *                 overridden; added explicit code font restore
+ *                 so code blocks are unaffected
+ *  2026-04-03.3 - Fixed interfont: switched from @import inside
+ *                 GM_addStyle (blocked by Claude.ai CSP) to
+ *                 injecting a <link> element into document.head
+ *  2026-04-03.2 - Added Inter font feature via Google Fonts
+ *                 (off by default); added imports{} block and
+ *                 updated injection logic to prepend @import
+ *                 rules before all other CSS
+ *  2026-04-03.1 - Fixed chatWidth outer container selector for
+ *                 existing chat pages: size-full to w-full
+ *                 flex-1 to match current live DOM
+ *  2026-03-31.2 - Added overflow-x: hidden to textAreaHeight;
  *                 added !important to sidebarHeadingsVisibility
  *                 font-weight so Tailwind can't override it
  *  2026-03-31.1 - Added debug mode, changelog, selector health
@@ -93,6 +106,17 @@
     // Set enabled: true to log active features and injected CSS size to the console.
     // Set enabled: false to silence all console output.
     debug: {
+      enabled: false,
+    },
+
+    // Replaces the Claude.ai interface font with Inter, loaded from Google Fonts.
+    // Inter is a clean sans-serif typeface designed for screen readability,
+    // similar in feel to the font used by ChatGPT.
+    // Note: enabling this makes a request to Google Fonts servers.
+    // See the privacy note in SECURITY.md for details.
+    // Note: uses a <link> element injection rather than @import because
+    // Claude.ai's Content Security Policy blocks @import inside style tags.
+    interfont: {
       enabled: false,
     },
 
@@ -172,9 +196,33 @@
   };
 
   /*=============================================*
+   *   Inter font - injected via <link>          *
+   *   @import inside GM_addStyle is blocked by  *
+   *   Claude.ai's Content Security Policy       *
+   *==============================================*/
+  if (settings.interfont?.enabled) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap';
+    document.head.appendChild(link);
+  }
+
+  /*=============================================*
    *   CSS - verified against live DOM           *
    *==============================================*/
   const css = {
+
+    /* Applies Inter to all elements using body * to override Tailwind's
+       per-element font assignments. Code blocks are explicitly restored
+       to the monospace stack so they are unaffected. */
+    interfont: `
+      body * {
+        font-family: 'Inter', sans-serif !important;
+      }
+      code, pre, pre * {
+        font-family: ${settings.codeBlockFont.fontFamily}, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace !important;
+      }
+    `,
 
     /* Two wrappers both carry max-w-3xl - override both */
     chatWidth: `
